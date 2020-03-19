@@ -21,26 +21,29 @@ namespace AbpCompanyName.AbpProjectName.Web.Controllers
 
         public async Task<ActionResult> Index()
         {
-            var users = (await _userAppService.GetAll(new PagedResultRequestDto {MaxResultCount = int.MaxValue})).Items; // Paging not implemented yet
             var roles = (await _userAppService.GetRoles()).Items;
             var model = new UserListViewModel
             {
-                Users = users,
                 Roles = roles
             };
             return View(model);
         }
 
-        public async Task<ActionResult> EditUserModal(long userId)
+        public async Task<ActionResult> EditModal(long userId)
         {
-            var user = await _userAppService.Get(new EntityDto<long>(userId));
+            var user = await _userAppService.GetAsync(new EntityDto<long>(userId));
             var roles = (await _userAppService.GetRoles()).Items;
             var model = new EditUserModalViewModel
             {
                 User = user,
                 Roles = roles
             };
-            return View("_EditUserModal", model);
+            return PartialView("_EditModal", model);
+        }
+
+        public ActionResult ChangePassword()
+        {
+            return View();
         }
     }
 }

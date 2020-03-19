@@ -3,7 +3,7 @@
   <texts>
     <text name="HomePage" value="Home page" />
     <text name="About" value="Chi siamo" />
-    <text name="WellcomeMessage" value="Benvenuti su My New House!" />
+    <text name="WelcomeMessage" value="Benvenuti su My New House!" />
 
     <text name="FormIsNotValidMessage" value="I dati non sono corretti. Verifica gli errori." />
     <text name="TenantNameCanNotBeEmpty" value="Il Dominio non può essere vuoto" />
@@ -53,5 +53,6 @@
     <text name="Yes" value="Sì" />
     <text name="No" value="No" />
     <text name="Optional" value="Opzionale" />
+    <text name="SearchWithThreeDot">Cerca...</text>
   </texts>
 </localizationDictionary>

@@ -21,27 +21,21 @@ namespace AbpCompanyName.AbpProjectName.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var roles = (await _roleAppService.GetAll(new PagedAndSortedResultRequestDto())).Items;
             var permissions = (await _roleAppService.GetAllPermissions()).Items;
             var model = new RoleListViewModel
             {
-                Roles = roles,
                 Permissions = permissions
             };
 
             return View(model);
         }
 
-        public async Task<ActionResult> EditRoleModal(int roleId)
+        public async Task<ActionResult> EditModal(int roleId)
         {
-            var role = await _roleAppService.Get(new EntityDto(roleId));
-            var permissions = (await _roleAppService.GetAllPermissions()).Items;
-            var model = new EditRoleModalViewModel
-            {
-                Role = role,
-                Permissions = permissions
-            };
-            return View("_EditRoleModal", model);
+            var output = await _roleAppService.GetRoleForEdit(new EntityDto(roleId));
+            var model = ObjectMapper.Map<EditRoleModalViewModel>(output);
+
+            return PartialView("_EditModal", model);
         }
     }
 }

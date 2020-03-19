@@ -3,7 +3,7 @@
   <texts>
     <text name="HomePage" value="Página de inicio" />
     <text name="About" value="Acerca de" />
-    <text name="WellcomeMessage" value="Bienvenido a WMS!" />
+    <text name="WelcomeMessage" value="Bienvenido a WMS!" />
 
     <text name="FormIsNotValidMessage" value="Formulario no es válido. Por favor, compruebe y corrija los errores." />
     <text name="TenantNameCanNotBeEmpty" value="Nombre de la empresa no puede estar vacío" />
@@ -42,6 +42,6 @@
     <text name="TenantSelection" value="Selección de Empresa" />
     <text name="TenantSelection_Detail" value="Por favor seleccione una de las siguientes empresas." />
     <text name="Logout" value="Cerrar sesión" />
-
+    <text name="SearchWithThreeDot">Buscar...</text>
   </texts>
 </localizationDictionary>

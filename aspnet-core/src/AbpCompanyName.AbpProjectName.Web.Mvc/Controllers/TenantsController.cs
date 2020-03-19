@@ -18,16 +18,12 @@ namespace AbpCompanyName.AbpProjectName.Web.Controllers
             _tenantAppService = tenantAppService;
         }
 
-        public async Task<ActionResult> Index()
-        {
-            var output = await _tenantAppService.GetAll(new PagedResultRequestDto { MaxResultCount = int.MaxValue }); // Paging not implemented yet
-            return View(output);
-        }
+        public ActionResult Index() => View();
 
-        public async Task<ActionResult> EditTenantModal(int tenantId)
+        public async Task<ActionResult> EditModal(int tenantId)
         {
-            var tenantDto = await _tenantAppService.Get(new EntityDto(tenantId));
-            return View("_EditTenantModal", tenantDto);
+            var tenantDto = await _tenantAppService.GetAsync(new EntityDto(tenantId));
+            return PartialView("_EditModal", tenantDto);
         }
     }
 }

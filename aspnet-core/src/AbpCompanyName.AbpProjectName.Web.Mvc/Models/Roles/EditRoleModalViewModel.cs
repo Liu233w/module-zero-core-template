@@ -1,18 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using Abp.AutoMapper;
 using AbpCompanyName.AbpProjectName.Roles.Dto;
+using AbpCompanyName.AbpProjectName.Web.Models.Common;
 
 namespace AbpCompanyName.AbpProjectName.Web.Models.Roles
 {
-    public class EditRoleModalViewModel
+    [AutoMapFrom(typeof(GetRoleForEditOutput))]
+    public class EditRoleModalViewModel : GetRoleForEditOutput, IPermissionsEditViewModel
     {
-        public RoleDto Role { get; set; }
-
-        public IReadOnlyList<PermissionDto> Permissions { get; set; }
-
-        public bool HasPermission(PermissionDto permission)
+        public bool HasPermission(FlatPermissionDto permission)
         {
-            return Permissions != null && Role.Permissions.Any(p => p == permission.Name);
+            return GrantedPermissionNames.Contains(permission.Name);
         }
     }
 }

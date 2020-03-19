@@ -5,18 +5,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Abp.AspNetCore;
 using Abp.AspNetCore.Configuration;
+using Abp.AspNetCore.SignalR;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
 using Abp.Zero.Configuration;
 using AbpCompanyName.AbpProjectName.Authentication.JwtBearer;
 using AbpCompanyName.AbpProjectName.Configuration;
 using AbpCompanyName.AbpProjectName.EntityFrameworkCore;
-
-#if FEATURE_SIGNALR
-using Abp.Web.SignalR;
-#elif FEATURE_SIGNALR_ASPNETCORE
-using Abp.AspNetCore.SignalR;
-#endif
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 
 namespace AbpCompanyName.AbpProjectName
 {
@@ -24,18 +20,14 @@ namespace AbpCompanyName.AbpProjectName
          typeof(AbpProjectNameApplicationModule),
          typeof(AbpProjectNameEntityFrameworkModule),
          typeof(AbpAspNetCoreModule)
-#if FEATURE_SIGNALR 
-        ,typeof(AbpWebSignalRModule)
-#elif FEATURE_SIGNALR_ASPNETCORE
         ,typeof(AbpAspNetCoreSignalRModule)
-#endif
      )]
     public class AbpProjectNameWebCoreModule : AbpModule
     {
-        private readonly IHostingEnvironment _env;
+        private readonly IWebHostEnvironment _env;
         private readonly IConfigurationRoot _appConfiguration;
 
-        public AbpProjectNameWebCoreModule(IHostingEnvironment env)
+        public AbpProjectNameWebCoreModule(IWebHostEnvironment env)
         {
             _env = env;
             _appConfiguration = env.GetAppConfiguration();
@@ -73,6 +65,12 @@ namespace AbpCompanyName.AbpProjectName
         public override void Initialize()
         {
             IocManager.RegisterAssemblyByConvention(typeof(AbpProjectNameWebCoreModule).GetAssembly());
+        }
+
+        public override void PostInitialize()
+        {
+            IocManager.Resolve<ApplicationPartManager>()
+                .AddApplicationPartsIfNotAddedBefore(typeof(AbpProjectNameWebCoreModule).Assembly);
         }
     }
 }
